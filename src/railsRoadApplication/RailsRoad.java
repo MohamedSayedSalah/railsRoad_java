@@ -5,7 +5,7 @@ import railsRoadApplication.Util.FileParser;
 
 public class RailsRoad {
     public static void main(String[] args) {
-        Solver solver = new Solver() ;
+        Solver solver = new Solver("input") ;
         solver.solve();
     }
 }

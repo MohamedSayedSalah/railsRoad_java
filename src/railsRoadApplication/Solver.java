@@ -15,13 +15,17 @@ public class Solver {
     Graph graph;
     String[] rules = {"ABC", "AD", "ADC", "AEBCD", "AED"};
     long [][] mem  ;
-    public Solver() {
+
+    public Solver(){} ;
+    public Solver(String fileName) {
         FileParser fileParser = new FileParser();
         graph = new Graph();
         mem = new long [26][10000] ;
         Arrays.stream(mem).forEach(x->Arrays.fill(x,-1));
-        fileParser.fileReader("input", graph);
+        fileParser.fileReader(fileName, graph);
     }
+
+
 
     public long totalTripDistance(String trip) {
         int n = trip.length();
@@ -33,7 +37,21 @@ public class Solver {
         return steps > 0 ? steps : 0;
     }
 
+    public void preDefinedRoutesTripDistance(){
+        IntStream.range(0, rules.length).forEach(
+                nbr -> {
+                    if (totalTripDistance(rules[nbr]) > 0) {
+                        System.out.println("Output #" + (nbr + 1) + ": " + totalTripDistance(rules[nbr]));
+                    } else {
+                        System.out.println("Output #" + (nbr + 1) + ":" + " NO SUCH ROUTE");
+                    }
+                }
+        );
+    }
+
+
     public int numberOfTrips(char start, char end, int stops, boolean exact, char current) {
+
         if (stops < 0) return 0;
         if (current == end && ((stops == 0 && exact) || (stops >= 0 && !exact))) return 1;
         if (current == '*') current = start;// default value
@@ -45,7 +63,7 @@ public class Solver {
     }
 
 
-    long dijkstra(char s, char d) { // V * V
+   public long dijkstra(char s, char d) { // V * V
 
         boolean[] visited = new boolean[26];
         long [] dis = new long[26];
@@ -79,7 +97,7 @@ public class Solver {
         return dis[d - 'A'];
     }
 
-    long dijkstraWithPriorityQueue(char s, char d) {
+    public long dijkstraWithPriorityQueue(char s, char d) {
 
 
         long [] dis = new long [26];
@@ -94,7 +112,7 @@ public class Solver {
         while (!q.isEmpty()) {
             Edge e = q.peek();
             q.poll();
-            if (e.getWeight() > dis[e.getTo().getId() - 'A']) continue;// some other states reached better already
+
 
              e.getTo().getEdges().forEach(edge ->{
                  Edge tempEdge  = new Edge(edge.getFrom() , edge.getTo() , edge.getWeight()) ;
@@ -139,16 +157,8 @@ public class Solver {
 
 
     public void solve() {
-        IntStream.range(0, rules.length).forEach(
-                nbr -> {
-                    if (totalTripDistance(rules[nbr]) > 0) {
-                        System.out.println("Output #" + (nbr + 1) + ": " + totalTripDistance(rules[nbr]));
-                    } else {
-                        System.out.println("Output #" + (nbr + 1) + ":" + " NO SUCH ROUTE");
-                    }
-                }
-        );
 
+        preDefinedRoutesTripDistance();
         System.out.println("Output #6:" + numberOfTrips('C', 'C', 3, false, '*'));
         System.out.println("Output #7:" + numberOfTrips('A', 'C', 4, true, '*'));
         System.out.println("Output #8:" + dijkstraWithPriorityQueue('A', 'C'));
