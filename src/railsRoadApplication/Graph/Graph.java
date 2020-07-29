@@ -12,12 +12,11 @@ public class Graph {
     List <Vertex > adjList ;
 
 
-    Graph(){
-        this.adjMatrix = new long [26][26] ;
-        Arrays.fill(adjMatrix,(1 << 30));
-        this.adjList = new ArrayList<>(26)  ;
+    public Graph() {
+        this.adjMatrix = new long[26][26];
+        Arrays.stream(adjMatrix).forEach(x->Arrays.fill(x,1<<30));
+        this.adjList = Arrays.asList(new Vertex[26]);
     }
-
     public void setAdjMatrix(String direction){
         RouteParser routeParser = new RouteParser(direction) ;
         adjMatrix[routeParser.getFrom() - 'A'][routeParser.getTo() - 'A'] = routeParser.getDistance();

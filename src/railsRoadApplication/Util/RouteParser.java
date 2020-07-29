@@ -14,7 +14,6 @@ public class RouteParser {
         for (int i = input.length() - 1, j = 0; i >= 0; i--, j++) {
             if (input.charAt(i) < '0' || input.charAt(i) > '9') {
                 System.out.print("Error Parsing Input");
-                ;
                 exit(1);
             }
             ret += Math.pow(10.0, j * 1.0) * (input.charAt(i) - '0');

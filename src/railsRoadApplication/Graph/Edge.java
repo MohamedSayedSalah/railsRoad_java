@@ -5,7 +5,11 @@ public class Edge {
     long weight ;
 
     Edge() {};
-    Edge (Vertex from, Vertex to , long weight) {};
+    Edge (Vertex from, Vertex to , long weight) {
+        this.from = from ;
+        this.to = to ;
+        this.weight = weight;
+    };
 
     public Long getWeight() {
         return weight;
