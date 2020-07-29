@@ -1,11 +1,11 @@
 package railsRoadApplication.Graph;
 
-public class Edge {
+public class Edge  implements Comparable<Edge>{
     Vertex from , to ;
     long weight ;
 
     Edge() {};
-    Edge (Vertex from, Vertex to , long weight) {
+    public Edge(Vertex from, Vertex to, long weight) {
         this.from = from ;
         this.to = to ;
         this.weight = weight;
@@ -35,4 +35,12 @@ public class Edge {
         this.weight = weight;
     }
 
+    @Override
+    public int compareTo(Edge o) {
+        if (this.weight > o.getWeight())
+            return - 1 ;
+        if (this.weight == o.getWeight())
+            return 0 ;
+        return 1 ;
+    }
 }

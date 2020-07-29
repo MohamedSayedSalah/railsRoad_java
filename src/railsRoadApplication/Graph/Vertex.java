@@ -8,7 +8,7 @@ public class Vertex {
     List<Edge> edges ;
 
     Vertex(){} ;
-    Vertex(char id){
+    public Vertex(char id){
         this.id = id ;
         this.edges = new ArrayList<>() ;
     };

@@ -8,6 +8,7 @@ import railsRoadApplication.Util.FileParser;
 
 import java.util.Arrays;
 import java.util.List;
+import java.util.PriorityQueue;
 import java.util.stream.IntStream;
 
 public class Solver {
@@ -78,6 +79,37 @@ public class Solver {
         return dis[d - 'A'];
     }
 
+    long dijkstraWithPriorityQueue(char s, char d) {
+
+
+        long [] dis = new long [26];
+        Arrays.fill(dis , 1 << 30);
+
+        PriorityQueue<Edge> q = new PriorityQueue<>();
+        Vertex starter = new Vertex('0');
+        Vertex to = graph.getAdjList().get(s - 'A');
+        q.add(new Edge(starter, to, 0));
+        dis[s-'A'] = 0 ;
+
+        while (!q.isEmpty()) {
+            Edge e = q.peek();
+            q.poll();
+            if (e.getWeight() > dis[e.getTo().getId() - 'A']) continue;// some other states reached better already
+
+             e.getTo().getEdges().forEach(edge ->{
+                 Edge tempEdge  = new Edge(edge.getFrom() , edge.getTo() , edge.getWeight()) ;
+                 if (dis[edge.getTo().getId() - 'A'] > dis[edge.getFrom().getId() - 'A'] + edge.getWeight()) {
+                     dis[edge.getTo().getId() - 'A'] = dis[edge.getFrom().getId() - 'A'] + edge.getWeight();
+                     tempEdge.setWeight(dis[edge.getFrom().getId() - 'A'] + e.getWeight());
+                     q.add(tempEdge);
+                 }
+             });
+        }
+
+
+        return dis[d-'A'];
+    }
+
 
 
 
@@ -119,7 +151,7 @@ public class Solver {
 
         System.out.println("Output #6:" + numberOfTrips('C', 'C', 3, false, '*'));
         System.out.println("Output #7:" + numberOfTrips('A', 'C', 4, true, '*'));
-        System.out.println("Output #8:" + dijkstra('A', 'C'));
+        System.out.println("Output #8:" + dijkstraWithPriorityQueue('A', 'C'));
         System.out.println("Output #9:" + dijkstra('B', 'B'));
         System.out.println("Output #10:" + differentRoutes('C' ,'C'  , 30,0));
 
