@@ -34,8 +34,8 @@ public class RailsRoadTests {
        Assertions.assertEquals(5,solver.numberOfTrips('A','D',3,false, '*'));
        Assertions.assertEquals(9,solver.numberOfTrips('A','D',4,false, '*'));
        Assertions.assertEquals(16,solver.numberOfTrips('A','D',5,false, '*'));
-       Assertions.assertEquals(9,solver.numberOfTrips('A','E',6,false, '*'));
-       Assertions.assertEquals(8,solver.numberOfTrips('A','E',3,false, '*'));
+       Assertions.assertEquals(8,solver.numberOfTrips('A','E',6,false, '*'));
+       Assertions.assertEquals(2,solver.numberOfTrips('A','E',3,false, '*'));
    }
 
 

@@ -25,7 +25,15 @@ public class Solver {
         fileParser.fileReader(fileName, graph);
     }
 
-
+    /**
+     *
+     * @param trip  trip  from rules array like ABC
+     * @return number of steps until you reach your destination
+     *
+     * this solution is using adj_matrix to calculate directly the steps from to -> destination in O(1) constant time factor
+     *  ABC will be  =  adj_matrix[0][1] + adj_matrix[1][2]
+     *
+     */
 
     public long totalTripDistance(String trip) {
         int n = trip.length();
@@ -37,6 +45,9 @@ public class Solver {
         return steps > 0 ? steps : 0;
     }
 
+    /**
+     * just for parsing the rules array
+     */
     public void preDefinedRoutesTripDistance(){
         IntStream.range(0, rules.length).forEach(
                 nbr -> {
@@ -50,6 +61,21 @@ public class Solver {
     }
 
 
+    /**
+     *
+     * @param start initial source
+     * @param end endup destination
+     * @param stops how many stops do you still have so far
+     * @param exact is it has to be exact number of steps or it can be maximum number of steps
+     * @param current your current vertex
+     * @return number of different route that you could take from source to destination with provided steps
+     *
+     * for each vertex you visit all of its edges
+     * and for each new visited vertex you subtract your remaining steps by 1
+     * until you reach your destination this will be considered a valid route
+     * the solution complexity will be O(E*V)
+     */
+
     public int numberOfTrips(char start, char end, int stops, boolean exact, char current) {
 
         if (stops < 0) return 0;
@@ -62,6 +88,23 @@ public class Solver {
         ).sum();
     }
 
+
+
+    /**
+     *
+     * @param s  your source vertex
+     * @param d  your destination vertex
+     * @return  the shortest path from source to destination
+     *
+     * every iteration :
+     *          - pick the shortest edge from your source that has not been visited yet
+     *          - relax
+     *          - for every vertex v test if distance from source s to every other_vertex i in distance array is the shortest or not    s->v->i < s->i (horrible explanation I know)
+     *          - if not update the array and mark v as visited
+     *
+     *
+     *          the solution complexity is O (V*V)
+     */
 
    public long dijkstra(char s, char d) { // V * V
 
@@ -97,6 +140,24 @@ public class Solver {
         return dis[d - 'A'];
     }
 
+
+    /**
+     *
+     * @param s  your source vertex
+     * @param d  your destination vertex
+     * @return  the shortest path from source to destination
+     *
+     * every iteration :
+     *          - push a new edge to the queue with 0 weight
+     *          - priority queue will sort by least weight
+     *          - relax
+     *          - for every vertex v test if distance from source s to every other_vertex i in distance array is the shortest or not    s->v->i < s->i
+     *          - if not update the array and mark v as visited
+     *
+     *
+     *          the solution complexity is O (V * LOG(E))
+     */
+
     public long dijkstraWithPriorityQueue(char s, char d) {
 
 
@@ -129,6 +190,18 @@ public class Solver {
     }
 
 
+    /**
+     *
+     * @param current  you current vertex
+     * @param e you destination
+     * @param distance the upTo distance
+     * @param soFar what is your steps soFar
+     * @return number of different routes
+     *
+     *  for each vertex you visit all of its edges with added weight to the total steps
+     *  and route considered to be a different route if and only if you visited the vertex with different steps so far
+     *  and mem array for memoization and for saving the visited state however using HashMap for keeping the state was a better solution
+     */
 
 
     public long differentRoutes(char current, char e, long distance, long soFar ) {
