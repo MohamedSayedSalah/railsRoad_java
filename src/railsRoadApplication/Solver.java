@@ -131,7 +131,7 @@ public class Solver {
 
 
 
-    long differentRoutes(char current, char e, long distance, long soFar ) {
+    public long differentRoutes(char current, char e, long distance, long soFar ) {
         if (soFar >= distance) {
             return 0;
         }

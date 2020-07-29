@@ -1,11 +1,9 @@
 package RailsRoadTests;
 
 import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import railsRoadApplication.Solver;
 
-import java.util.stream.IntStream;
 
 public class RailsRoadTests {
 
@@ -72,6 +70,16 @@ public class RailsRoadTests {
         Assertions.assertEquals(400,solver.dijkstraWithPriorityQueue('E','I'));
 
     }
+
+   @Test
+
+    public void routeCombinations(){
+        Solver solver = new Solver( "test1") ;
+       Assertions.assertEquals(13,solver.differentRoutes('A','D' ,200 , 0));
+       Assertions.assertEquals(13,solver.differentRoutes('A','C' ,300 , 0));
+       Assertions.assertEquals(9,solver.differentRoutes('B','D' ,200 , 0));
+       Assertions.assertEquals(14,solver.differentRoutes('E','D' ,200 , 0));
+   }
 
 
 }
