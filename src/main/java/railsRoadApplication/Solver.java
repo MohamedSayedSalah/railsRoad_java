@@ -73,7 +73,7 @@ public class Solver {
      * for each vertex you visit all of its edges
      * and for each new visited vertex you subtract your remaining steps by 1
      * until you reach your destination this will be considered a valid route
-     * the solution complexity will be O(E*V)
+     *
      */
 
     public int numberOfTrips(char start, char end, int stops, boolean exact, char current) {
